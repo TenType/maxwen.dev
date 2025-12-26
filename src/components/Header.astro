@@ -14,7 +14,7 @@ import ThemeToggle from "./ThemeToggle.astro";
           <HeaderLink href="/blog">Blog</HeaderLink>
         </div>
       </div>
-      <div class="header-right">
+      <div class="nav-right">
         <ThemeToggle />
       </div>
     </div>
@@ -23,16 +23,13 @@ import ThemeToggle from "./ThemeToggle.astro";
 <style>
   header {
     margin: 0;
-    padding: 0 1em;
-    background: var(--header-bg);
+    background: var(--nav-bg);
     box-shadow: 0 2px 8px rgba(var(--black), 5%);
     transition: background-color 0.3s ease;
   }
   h2 {
     margin: 0;
     font-size: 1em;
-    display: flex;
-    align-items: center;
   }
 
   h2 a,
@@ -59,29 +56,18 @@ import ThemeToggle from "./ThemeToggle.astro";
     display: flex;
     align-items: center;
   }
-  nav a {
-    padding: 0.5em 0.5em;
-    color: var(--text-color, rgb(var(--black)));
-    border-bottom: 4px solid transparent;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  nav a.active {
-    text-decoration: none;
-    border-bottom-color: var(--accent);
-  }
-  .header-right {
+  .nav-right {
     display: flex;
     align-items: center;
   }
-  .header-right a {
+  .nav-right a {
     display: flex;
   }
   @media (max-width: 720px) {
     .nav-content {
       padding: 0;
     }
-    .header-right a {
+    .nav-right a {
       display: none;
     }
   }
