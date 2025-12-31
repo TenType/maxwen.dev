@@ -1,4 +1,4 @@
-# Website
+# [maxwen.dev](https://maxwen.dev)
 
 Welcome to my personal website!
 
