@@ -64,9 +64,10 @@ const posts = (await getCollection("blog")).sort(
       <section>
         <ul>
           {
-            posts.map((post) => (
-              <li class="blog-post">
-                <a href={`/blog/${post.id}/`}>
+            posts.map((post) => {
+              const isPublished = post.data.published !== false;
+              const content = (
+                <>
                   {post.data.thumbnail && (
                     <Image
                       src={post.data.thumbnail}
@@ -85,9 +86,18 @@ const posts = (await getCollection("blog")).sort(
                     </div>
                     <p class="description">{post.data.description}</p>
                   </div>
-                </a>
-              </li>
-            ))
+                </>
+              );
+              return (
+                <li class={`blog-post ${!isPublished ? "unpublished" : ""}`}>
+                  {isPublished ? (
+                    <a href={`/blog/${post.id}/`}>{content}</a>
+                  ) : (
+                    <div class="unpublished-wrapper">{content}</div>
+                  )}
+                </li>
+              );
+            })
           }
         </ul>
       </section>
