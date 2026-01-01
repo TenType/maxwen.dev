@@ -1,0 +1,46 @@
+---
+interface Props {
+  level: 0 | 1 | 2 | 3 | 4;
+}
+
+const { level } = Astro.props;
+
+const config = {
+  0: { width: "0%", color: "transparent", borderColor: "#4CAF50" },
+  1: { width: "25%", color: "#4CAF50", borderColor: "#4CAF50" },
+  2: { width: "50%", color: "#FBBC04", borderColor: "#FBBC04" },
+  3: { width: "75%", color: "#F27D07", borderColor: "#F27D07" },
+  4: { width: "100%", color: "#E53935", borderColor: "#E53935" },
+};
+
+const { width, color, borderColor } = config[level];
+---
+
+<span
+  class="level-bar"
+  style={`--fill-width: ${width}; --fill-color: ${color}; --border-color: ${borderColor}`}
+>
+  <span class="fill"></span>
+</span>
+
+<style>
+  .level-bar {
+    display: inline-block;
+    width: 60px;
+    height: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 3px;
+    background: transparent;
+    position: relative;
+    vertical-align: middle;
+  }
+
+  .fill {
+    display: block;
+    height: 100%;
+    width: var(--fill-width);
+    background-color: var(--fill-color);
+    border-radius: 1px;
+    transition: width 0.2s ease;
+  }
+</style>
