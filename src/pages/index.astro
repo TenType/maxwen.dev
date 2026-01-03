@@ -17,7 +17,11 @@ const latestPost = posts[0];
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <BaseHead
+      title={SITE_TITLE}
+      description={SITE_DESCRIPTION}
+      image={latestPost.data.thumbnail}
+    />
     <style>
       .latest-post {
         margin-bottom: 1.25rem;
@@ -30,14 +34,14 @@ const latestPost = posts[0];
   <body>
     <Header />
     <main>
-      <h1>Hi! I'm Max.</h1>
+      <h1>Hi! I'm Max. 👋</h1>
       <p>
-        I'm a student developer and researcher from the Bay Area studying at <a
+        I'm a student developer and researcher studying at <a
           href="https://www.cmu.edu/"
           target="_blank">Carnegie Mellon University</a
-        >! I'm interested in machine learning, computer science, statistics, and
-        psychology. My research centers on machine learning in cybersecurity,
-        with a secondary focus on pedagogy.
+        > in Pittsburgh, Pennsylvania. I'm interested in machine learning, computer
+        science, statistics, and psychology. My research centers on machine learning
+        in cybersecurity, with a secondary focus on pedagogy.
       </p>
       {
         latestPost && (
