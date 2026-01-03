@@ -1,6 +1,5 @@
 :root {
-    --accent: #2337ff;
-    --accent-dark: #000d8a;
+    --accent: #005eff;
     --black: 15, 18, 25;
     --gray: 96, 115, 159;
     --gray-light: 229, 233, 240;
@@ -17,8 +16,7 @@
 
 /* Dark mode styles */
 .dark {
-    --accent: #6366f1;
-    --accent-dark: #818cf8;
+    --accent: #0084ff;
     --gray-gradient: rgba(var(--gray-dark), 50%), rgb(var(--black));
     --box-shadow:
         0 2px 6px rgba(0, 0, 0, 40%), 0 8px 24px rgba(0, 0, 0, 50%),
