@@ -1,16 +1,17 @@
 ---
 interface Props {
-  level: 0 | 1 | 2 | 3 | 4;
+  level: 0 | 1 | 2 | 3 | 4 | 5;
 }
 
 const { level } = Astro.props;
 
 const config = {
   0: { width: "0%", color: "transparent", borderColor: "#4CAF50" },
-  1: { width: "25%", color: "#4CAF50", borderColor: "#4CAF50" },
-  2: { width: "50%", color: "#FBBC04", borderColor: "#FBBC04" },
-  3: { width: "75%", color: "#F27D07", borderColor: "#F27D07" },
-  4: { width: "100%", color: "#E53935", borderColor: "#E53935" },
+  1: { width: "20%", color: "#4CAF50", borderColor: "#4CAF50" },
+  2: { width: "40%", color: "#A4B62A", borderColor: "#A4B62A" },
+  3: { width: "60%", color: "#FBBC04", borderColor: "#FBBC04" },
+  4: { width: "80%", color: "#F27D07", borderColor: "#F27D07" },
+  5: { width: "100%", color: "#E53935", borderColor: "#E53935" },
 };
 
 const { width, color, borderColor } = config[level];
