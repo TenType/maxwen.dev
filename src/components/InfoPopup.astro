@@ -1,0 +1,146 @@
+---
+interface Props {
+  message: string;
+}
+
+const { message } = Astro.props;
+---
+
+<span class="info" data-info-popup>
+  <button
+    class="info-btn"
+    type="button"
+    aria-label="More information"
+    aria-expanded="false"
+  >
+    *
+  </button>
+
+  <span class="info-msg" role="tooltip">
+    {message}
+  </span>
+</span>
+
+<script is:inline>
+  const closeAll = (except) => {
+    document.querySelectorAll("[data-info-popup].open").forEach((el) => {
+      if (el !== except) {
+        el.classList.remove("open", "above");
+        el.querySelector(".info-btn")?.setAttribute("aria-expanded", "false");
+      }
+    });
+  };
+
+  const updatePosition = (wrap) => {
+    const btn = wrap.querySelector(".info-btn");
+    const msg = wrap.querySelector(".info-msg");
+    if (!(btn instanceof HTMLElement) || !(msg instanceof HTMLElement)) return;
+
+    wrap.classList.remove("above");
+
+    const r = btn.getBoundingClientRect();
+    if (
+      window.innerHeight - r.bottom < msg.offsetHeight + 10 &&
+      r.top > msg.offsetHeight + 10
+    ) {
+      wrap.classList.add("above");
+    }
+  };
+
+  const refresh = () => {
+    document.querySelectorAll("[data-info-popup].open").forEach(updatePosition);
+  };
+
+  document.addEventListener("click", (e) => {
+    const target = e.target instanceof Element ? e.target : null;
+    const wrap = target?.closest("[data-info-popup]");
+
+    if (!wrap) {
+      closeAll(null);
+      return;
+    }
+
+    if (target.closest(".info-btn")) {
+      const open = !wrap.classList.contains("open");
+      closeAll(wrap);
+      wrap.classList.toggle("open", open);
+      wrap
+        .querySelector(".info-btn")
+        ?.setAttribute("aria-expanded", String(open));
+      if (open) updatePosition(wrap);
+      return;
+    }
+
+    closeAll(wrap);
+  });
+
+  document.addEventListener("scroll", refresh, true);
+  window.addEventListener("resize", refresh);
+</script>
+
+<style>
+  .info {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .info-btn {
+    all: unset;
+    cursor: pointer;
+    line-height: 1;
+    font-size: 0.95em;
+    user-select: none;
+    color: var(--accent);
+  }
+
+  .info-msg {
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 0.6rem);
+    transform: translateX(-50%) translateY(-4px) scale(0.98);
+    padding: 0.6rem 0.8rem;
+
+    background: var(--header-bg);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.12);
+    width: max-content;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+      opacity 160ms ease,
+      transform 160ms ease,
+      visibility 160ms ease;
+  }
+
+  .info-msg::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -7px;
+    width: 14px;
+    height: 14px;
+    background: var(--header-bg);
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  .info.above .info-msg {
+    top: auto;
+    bottom: calc(100% + 0.6rem);
+  }
+
+  .info.above .info-msg::before {
+    top: auto;
+    bottom: -7px;
+  }
+
+  .info.open .info-msg {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) scale(1);
+  }
+</style>
